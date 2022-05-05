@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "388954094733-57hfs1989en4vd3a1m3h5kqh0hjhdo7m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ping_pong",
+            "certificate_hash": "fc1eca9451b7fe715056a8dee7631f87685025b7"
+          }
+        },
+        {
           "client_id": "388954094733-lbsjiqqit0ldfp62bf32kthcmdump5pg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
