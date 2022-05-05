@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "388954094733",
+    "project_id": "pong-ping-773d7",
+    "storage_bucket": "pong-ping-773d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388954094733:android:3107c5af719a31ea4476c4",
+        "android_client_info": {
+          "package_name": "com.example.ping_pong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388954094733-lbsjiqqit0ldfp62bf32kthcmdump5pg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ping_pong",
+            "certificate_hash": "703aaee7a9dd74f89a0ed2efa9832d8b15992460"
+          }
+        },
+        {
+          "client_id": "388954094733-39trf8pouab707uo987tjvev2e2v1gtj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2xcmLTG-StDsSvrKD2PWz3lZRTgJw4MI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388954094733-39trf8pouab707uo987tjvev2e2v1gtj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
