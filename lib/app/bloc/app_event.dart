@@ -22,3 +22,5 @@ class AppUserChanged extends AppEvent {
   List<Object> get props => [user];
 
 }
+
+class CheckUserRegistered extends AppEvent{}

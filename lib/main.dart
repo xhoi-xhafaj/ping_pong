@@ -1,4 +1,5 @@
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ping_pong/login/screen/login_screen.dart';
@@ -11,7 +12,13 @@ Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     final authenticationRepository = AuthenticationRepository();
+    final firestoreRepository = FirestoreRepository();
     await authenticationRepository.user.first;
-    runApp(App(authenticationRepository: authenticationRepository));
+    runApp(
+        App(
+          authenticationRepository: authenticationRepository,
+          firestoreRepository: firestoreRepository,
+        )
+    );
   });
 }

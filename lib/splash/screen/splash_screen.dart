@@ -56,7 +56,7 @@ class _ContinueButton extends StatelessWidget {
             textScaleFactor: 1.3,
           ),
           onPressed: state.status == AppStatus.authenticated
-              ? () => GoRouter.of(context).go('/home')
+              ? () => GoRouter.of(context).go('/usernamecheck')
               : () => GoRouter.of(context).go('/login'),
         );
       },

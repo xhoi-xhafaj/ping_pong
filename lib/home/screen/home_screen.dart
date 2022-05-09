@@ -1,4 +1,5 @@
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,12 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          GoRouter.of(context).go('/addmatches');
+        },
+      ),
       body: const Profile(),
     );
   }
@@ -52,7 +59,8 @@ class Profile extends StatelessWidget {
           SizedBox(height: 4),
           EmailOfUser(),
           SizedBox(height: 4.0),
-          NameOfUser()
+          NameOfUser(),
+          FirestoreUser(),
         ],
       ),
     );
@@ -104,4 +112,37 @@ class NameOfUser extends StatelessWidget {
     );
   }
 
+}
+
+class FirestoreUser extends StatelessWidget {
+
+  const FirestoreUser({Key? key}) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    final user = FirebaseFirestore.instance.collection('users').where('email', isEqualTo: 'xhoi@xhoi.com').snapshots();
+    return StreamBuilder<QuerySnapshot>(
+      stream: user,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot ) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('loading');
+        }
+        final data = snapshot.requireData;
+
+        return ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: data.size,
+          itemBuilder: (context, index) {
+            return Text('My name is ${data.docs[index]['name']}, my email is ${data.docs[index]['email']}');
+          },
+
+        );
+      },
+    );
+  }
 }

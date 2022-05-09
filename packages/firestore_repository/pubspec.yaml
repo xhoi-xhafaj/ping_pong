@@ -1,0 +1,23 @@
+name: firestore_repository
+description: Dart package that manages the firestore data model queries
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  cache:
+    path: ../cache
+  equatable: ^2.0.3
+  firebase_core: ^1.5.0
+  cloud_firestore: ^2.2.2
+  flutter:
+    sdk: flutter
+  very_good_analysis: ^2.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.2.0
+  test: ^1.17.11

@@ -41,7 +41,7 @@ class LoginForm extends StatelessWidget {
               ),
             );
         } else if (state.status.isSubmissionSuccess) {
-          GoRouter.of(context).go('/home');
+          GoRouter.of(context).go('/usernamecheck');
         }
       },
       child: Align(

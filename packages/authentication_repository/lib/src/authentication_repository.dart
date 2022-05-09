@@ -161,6 +161,7 @@ class AuthenticationRepository {
         email: email,
         password: password,
       );
+
     } on FirebaseAuthException catch (exeption) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(exeption.code);
     } catch (_) {
