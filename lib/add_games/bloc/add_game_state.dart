@@ -76,7 +76,7 @@ class Set extends Equatable {
     this.set = 0,
     this.playerOneScore = 0,
     this.playerTwoScore = 0,
-    this.addButtonEnabled = true,
+    this.addButtonEnabled = false,
   });
 
   Set copyWith({

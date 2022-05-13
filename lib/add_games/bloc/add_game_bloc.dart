@@ -83,69 +83,122 @@ class AddGameBloc extends Bloc<AddGameEvent, AddGameState> {
 
   void _addPlayerOneSetPoint(
       AddPlayerOneSetPoint event, Emitter<AddGameState> emitter) {
-    if (!(state.currentSet.playerOneScore >= 11 &&
-        state.currentSet.playerOneScore - state.currentSet.playerTwoScore >= 1
-    )) {
-      emitter(
-          state.copyWith(
-              currentSet: state.currentSet.copyWith(
-                playerOneScore: state.currentSet.playerOneScore + 1,
-                addButtonEnabled: false,
+    int futureScorePlayerOne = state.currentSet.playerOneScore + 1;
+    int futureScorePlayerTwo = state.currentSet.playerTwoScore;
+
+    if (checkIfSetFinished(futureScorePlayerOne, futureScorePlayerTwo)) {
+      if (state.currentSet.addButtonEnabled) {
+        if (futureScorePlayerTwo >= futureScorePlayerOne + 2) {
+          emitter(
+              state.copyWith(
+                  currentSet: state.currentSet.copyWith(
+                    playerOneScore: futureScorePlayerOne,
+                    addButtonEnabled: true,
+                  )
               )
-          )
-      );
+          );
+        } else {
+          emitter(
+              state.copyWith(
+                  currentSet: state.currentSet.copyWith(
+                    addButtonEnabled: true,
+                  )
+              )
+          );
+        }
+      } else {
+        emitter(
+            state.copyWith(
+                currentSet: state.currentSet.copyWith(
+                  playerOneScore: futureScorePlayerOne,
+                  addButtonEnabled: true,
+                )
+            )
+        );
+      }
     } else {
       emitter(
           state.copyWith(
               currentSet: state.currentSet.copyWith(
-                addButtonEnabled: true,
+                playerOneScore: futureScorePlayerOne,
+                addButtonEnabled: false,
               )
           )
       );
     }
+
   }
 
   void _addPlayerTwoSetPoint(
       AddPlayerTwoSetPoint event, Emitter<AddGameState> emitter) {
-    if (!(state.currentSet.playerTwoScore >= 11 &&
-        state.currentSet.playerTwoScore - state.currentSet.playerOneScore >= 1
-    )) {
-      emitter(
-          state.copyWith(
-              currentSet: state.currentSet.copyWith(
-                playerTwoScore: state.currentSet.playerTwoScore + 1,
-                addButtonEnabled: false,
+    int futureScorePlayerOne = state.currentSet.playerOneScore;
+    int futureScorePlayerTwo = state.currentSet.playerTwoScore + 1;
+
+    if (checkIfSetFinished(futureScorePlayerOne, futureScorePlayerTwo)) {
+      if (state.currentSet.addButtonEnabled) {
+        if (futureScorePlayerOne >= futureScorePlayerTwo + 2) {
+          emitter(
+              state.copyWith(
+                  currentSet: state.currentSet.copyWith(
+                    playerTwoScore: futureScorePlayerTwo,
+                    addButtonEnabled: true,
+                  )
               )
-          )
-      );
+          );
+        } else {
+          emitter(
+              state.copyWith(
+                  currentSet: state.currentSet.copyWith(
+                    addButtonEnabled: true,
+                  )
+              )
+          );
+        }
+      } else {
+        emitter(
+            state.copyWith(
+                currentSet: state.currentSet.copyWith(
+                  playerTwoScore: futureScorePlayerTwo,
+                  addButtonEnabled: true,
+                )
+            )
+        );
+      }
     } else {
-      emitter(
-          state.copyWith(
-              currentSet: state.currentSet.copyWith(
-                addButtonEnabled: true,
-              )
-          )
-      );
+        emitter(
+            state.copyWith(
+                currentSet: state.currentSet.copyWith(
+                  playerTwoScore: futureScorePlayerTwo,
+                  addButtonEnabled: false,
+                )
+            )
+        );
     }
   }
 
   void _removePlayerOneSetPoint(
       RemovePlayerOneSetPoint event, Emitter<AddGameState> emitter) {
-    if (state.currentSet.playerOneScore > 0) {
-      if (state.currentSet.playerOneScore > state.currentSet.playerTwoScore) {
-        emitter(
-            state.copyWith(
-                currentSet: state.currentSet.copyWith(
-                  playerOneScore: state.currentSet.playerOneScore - 1,
-                  addButtonEnabled: state.currentSet.addButtonEnabled ? false : state.currentSet.addButtonEnabled
-                )
-            )
-        );
+    int futureScorePlayerOne = state.currentSet.playerOneScore - 1;
+    int futureScorePlayerTwo = state.currentSet.playerTwoScore;
+
+    if (state.currentSet.playerOneScore != 0) {
+      if (checkIfSetFinished(futureScorePlayerOne, futureScorePlayerTwo)) {
+        if (futureScorePlayerOne + 3 > futureScorePlayerTwo) {
+          emitter(
+              state.copyWith(
+                  currentSet: state.currentSet.copyWith(
+                    playerOneScore: futureScorePlayerOne,
+                    addButtonEnabled: true,
+                  )
+              )
+          );
+        }
       } else {
         emitter(
             state.copyWith(
                 currentSet: state.currentSet.copyWith(
-                  playerOneScore: state.currentSet.playerOneScore - 1,
+                  playerOneScore: futureScorePlayerOne,
+                  addButtonEnabled: false,
                 )
             )
         );
@@ -155,25 +208,41 @@ class AddGameBloc extends Bloc<AddGameEvent, AddGameState> {
 
   void _removePlayerTwoSetPoint(
       RemovePlayerTwoSetPoint event, Emitter<AddGameState> emitter) {
-    if (state.currentSet.playerTwoScore > 0) {
-      if (state.currentSet.playerTwoScore > state.currentSet.playerOneScore) {
-        emitter(
-            state.copyWith(
-                currentSet: state.currentSet.copyWith(
-                  playerTwoScore: state.currentSet.playerTwoScore - 1,
-                    addButtonEnabled: state.currentSet.addButtonEnabled ? false : state.currentSet.addButtonEnabled,
-                )
-            )
-        );
+    int futureScorePlayerOne = state.currentSet.playerOneScore;
+    int futureScorePlayerTwo = state.currentSet.playerTwoScore - 1;
+
+    if (state.currentSet.playerTwoScore != 0) {
+      if (checkIfSetFinished(futureScorePlayerOne, futureScorePlayerTwo)) {
+        if (futureScorePlayerTwo + 3 > futureScorePlayerOne) {
+          emitter(
+              state.copyWith(
+                  currentSet: state.currentSet.copyWith(
+                    playerTwoScore: futureScorePlayerTwo,
+                    addButtonEnabled: true,
+                  )
+              )
+          );
+        }
       } else {
         emitter(
             state.copyWith(
                 currentSet: state.currentSet.copyWith(
-                  playerTwoScore: state.currentSet.playerTwoScore - 1,
+                  playerTwoScore: futureScorePlayerTwo,
+                  addButtonEnabled: false,
                 )
             )
         );
       }
+    }
+  }
+
+  bool checkIfSetFinished(int scoreOne, int scoreTwo) {
+    if (scoreOne >= 11 && scoreOne - scoreTwo >= 2) {
+      return true;
+    } else if (scoreTwo >= 11 && scoreTwo - scoreOne >= 2) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

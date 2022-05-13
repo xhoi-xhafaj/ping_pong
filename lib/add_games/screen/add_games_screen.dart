@@ -2,6 +2,7 @@ import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ping_pong/add_games/add_games.dart';
+import 'package:ping_pong/add_games/widgets/add_set_widgets/add_set_button.dart';
 
 class AddGamesScreen extends StatelessWidget {
   const AddGamesScreen({Key? key}) : super(key: key);
@@ -186,26 +187,34 @@ class AddSetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextOfSet(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: const PlayerOneSetPoint(),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: const PlayerTwoSetPoint(),
-              )
-            ],
-          )
-        ],
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        border: Border.all(color: Colors.black),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const TextOfSet(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 30.0,),
+                  child: const PlayerOneSetPoint(),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 30.0,),
+                  child: const PlayerTwoSetPoint(),
+                )
+              ],
+            ),
+            const AddSetButton(),
+          ],
+        ),
       ),
     );
   }

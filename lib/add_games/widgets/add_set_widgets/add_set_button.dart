@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../add_games.dart';
+import '../../add_games.dart';
 
-class ConfirmPlayersButton extends StatelessWidget {
+class AddSetButton extends StatelessWidget {
 
-  const ConfirmPlayersButton({Key? key}) : super(key: key);
+  const AddSetButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +15,16 @@ class ConfirmPlayersButton extends StatelessWidget {
         return ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(15),
               ),
-              minimumSize: Size(0.75 * width, 45),
+              minimumSize: Size(0.5 * width, 35),
             ),
-            onPressed: () {
-              context
-                  .read<AddGameBloc>()
-                  .add(InitializeNewGame());
-            },
+            onPressed: state.currentSet.addButtonEnabled
+                ? () {context.read<AddGameBloc>(); }
+                : null,
             child: const Text(
-              'START GAME',
-              style: TextStyle(fontSize: 30),
+              'ADD SET',
+              style: TextStyle(fontSize: 28),
             ));
       },
     );
