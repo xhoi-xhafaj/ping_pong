@@ -3,7 +3,9 @@ part of 'username_cubit.dart';
 enum UsernameStatus {
   unknown,
   registered,
-  unregistered
+  unregistered,
+  available,
+  invalid
 }
 
 class UsernameState extends Equatable {
@@ -46,5 +48,9 @@ extension UserStatusX on UsernameStatus {
   bool get isRegistered => this == UsernameStatus.registered;
 
   bool get isUnregistered => this == UsernameStatus.unregistered;
+
+  bool get isAvailable => this == UsernameStatus.available;
+
+  bool get isInvalid => this == UsernameStatus.invalid;
 
 }

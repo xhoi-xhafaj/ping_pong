@@ -1,4 +1,6 @@
+import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ping_pong/add_games/add_games.dart';
 
 class AddGamesScreen extends StatelessWidget {
@@ -7,93 +9,267 @@ class AddGamesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20.0,),
-            Text('Choose the players',
-              style: TextStyle(fontSize: 35),
-            ),
-            const SizedBox(height: 20.0,),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const UserNameAvatarCurrentPlayer(),
-                const Center(
-                  child: Text(
-                    'VS',
-                    style: TextStyle(fontSize: 30),
-                  ),
+    return BlocProvider(
+      create: (BuildContext context) => AddGameBloc(
+        firestoreRepository:
+            RepositoryProvider.of<FirestoreRepository>(context),
+      ),
+      child: Scaffold(
+        body: BlocConsumer<AddGameBloc, AddGameState>(
+          listenWhen: (previous, current) =>
+              previous.gameStatus != current.gameStatus,
+          listener: (context, state) {},
+          buildWhen: (previous, current) =>
+              previous.gameStatus != current.gameStatus,
+          builder: (context, state) {
+            context.read<AddGameBloc>().add(GetListOfOpponents());
+            if (state.gameStatus.isInitialized) {
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    const Text(
+                      'Choose the players',
+                      style: TextStyle(fontSize: 35),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        UserNameAvatarPlayerOne(),
+                        Center(
+                          child: Text(
+                            'VS',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ),
+                        UserNameAvatarPlayerTwo()
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    const Text(
+                      """Let's play""",
+                      style: TextStyle(fontSize: 35),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'best of',
+                          style: TextStyle(fontSize: 35),
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        ChooseTypeOfGame(),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const ConfirmPlayersButton(),
+                  ],
                 ),
-                const UserNameAvatarCurrentPlayer()
-              ],
-            ),
-            const SizedBox(height: 20.0,),
-            Text(
-              """Let's play""",
-              style: TextStyle(fontSize: 35),
-            ),
-            const SizedBox(height: 20.0,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'best of',
-                  style: TextStyle(fontSize: 35),
+              );
+            } else  if (state.gameStatus.isStarted) {
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        UserNamePlayerOne(),
+                        Center(
+                          child: Text(
+                            'VS',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ),
+                        UserNamePlayerTwo(),
+                      ],
+                    ),
+                    const AddSetWidget(),
+                  ],
                 ),
-                SizedBox(width: 12,),
-                Text(
-                  '3',
-                  style: TextStyle(fontSize: 35),
-                )
-              ],
-            ),
-            SizedBox(height: 30,),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  minimumSize: Size(0.8*width, 45),
-                ),
-
-                onPressed: () {
-
-                },
-                child: Text(
-                  'START GAME',
-                  style: TextStyle(fontSize: 30),
-                )
-            ),
-          ],
+              );
+            }
+            else {
+              return Container();
+            }
+          },
         ),
       ),
     );
   }
 }
 
-class UserNameAvatarCurrentPlayer extends StatelessWidget {
-  const UserNameAvatarCurrentPlayer({Key? key}) : super(key: key);
+class UserNameAvatarPlayerOne extends StatelessWidget {
+  const UserNameAvatarPlayerOne({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        const Avatar(),
-        const SizedBox(
-          height: 8,
-        ),
-        const Text(
-          'Player',
-          style: TextStyle(fontSize: 25),
-        ),
+      children: const [Avatar(), ChoosePlayerOne()],
+    );
+  }
+}
+
+class UserNameAvatarPlayerTwo extends StatelessWidget {
+  const UserNameAvatarPlayerTwo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: const [
+        Avatar(),
+        ChoosePlayerTwo(),
       ],
     );
   }
 }
+
+class UserNamePlayerOne extends StatelessWidget {
+  const UserNamePlayerOne({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+   return Column(
+     mainAxisSize: MainAxisSize.min,
+     children: const [
+       Avatar(),
+       PlayerOneText(),
+       PlayerOneScore(),
+     ],
+   );
+  }
+}
+
+class UserNamePlayerTwo extends StatelessWidget {
+  const UserNamePlayerTwo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: const [
+        Avatar(),
+        PlayerTwoText(),
+        PlayerTwoScore(),
+      ],
+    );
+  }
+}
+
+class AddSetWidget extends StatelessWidget {
+  const AddSetWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextOfSet(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: const PlayerOneSetPoint(),
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: const PlayerTwoSetPoint(),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class PlayerOneSetPoint extends StatelessWidget {
+  const PlayerOneSetPoint({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          const PlayerOneText(),
+          Row(
+            children: [
+              const PlayerOneScoreSet(),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    PlayerOneAddScoreButton(),
+                    PlayerOneSubtractScoreButton()
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PlayerTwoSetPoint extends StatelessWidget {
+  const PlayerTwoSetPoint({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          const PlayerTwoText(),
+          Row(
+            children: [
+              const PlayerTwoScoreSet(),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    PlayerTwoAddScoreButton(),
+                    PlayerTwoSubtractScoreButton()
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+

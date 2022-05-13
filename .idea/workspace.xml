@@ -5,11 +5,16 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a352f97-543d-4ccd-bfab-fc6978bd04c9" name="Default Changelist" comment="" />
+    <list default="true" id="9a352f97-543d-4ccd-bfab-fc6978bd04c9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +38,26 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/packages/firestore_repository/lib/firestore_repository.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/authentication_repository/lib/src/authentication_repository.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/firestore_repository/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/firestore_repository/lib/src/firestore_repository.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Runner/Info.plist" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/app/bloc/app_event.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/app/bloc/app_state.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Podfile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/home/screen/home_screen.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/authentication_repository/lib/src/models/user.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/authentication_repository/lib/authentication_repository.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/splash/screen/splash_screen.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Documents/flutter_workspace/flutter/packages/flutter/lib/src/rendering/viewport.dart" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/lib/sign_up/screen/sign_up_screen.dart" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="28Nmw7Hl838P0JMoW7vvIvdZIGz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -40,24 +65,25 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="DEBUGGABLE_DEVICE" value="Pixel_2_API_29 [emulator-5554]" />
+    <property name="DEBUGGABLE_PROCESS" value="com.example.ping_pong" />
+    <property name="DEBUGGER_ID" value="Java" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="cidr.known.project.marker" value="true" />
+    <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/assets" />
       <recent name="$PROJECT_DIR$/android/app" />
+      <recent name="$PROJECT_DIR$/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/add_games/widgets" />
       <recent name="$PROJECT_DIR$/lib/login" />
       <recent name="$PROJECT_DIR$/packages/form_inputs/lib" />
     </key>
@@ -95,15 +121,6 @@
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Flutter Test.tests in authentication_repository_test.dart" />
-        <item itemvalue="Flutter Test.create FirebaseAuth instance internally when not inject" />
-        <item itemvalue="Flutter Test.AuthenticationRepository" />
-        <item itemvalue="Flutter Test.tests in user_test.dart" />
-        <item itemvalue="Flutter Test.isNotEmpty return false for an empty user" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -113,8 +130,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651065657079</updated>
+      <workItem from="1652275659066" duration="302000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -126,8 +147,85 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="../../../../AndroidStudioProjects/ping_pong/coverage/lcov.info" NAME="create FirebaseAuth instance internally when not inject Coverage Results" MODIFIED="1651132936257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="FlutterCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/app/bloc/app_bloc.dart</url>
+          <line>47</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/app/bloc/app_state.dart</url>
+          <line>32</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/app/bloc/app_bloc.dart</url>
+          <line>52</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/username_check/cubit/username_cubit.dart</url>
+          <line>32</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/packages/firestore_repository/lib/src/firestore_repository.dart</url>
+          <line>42</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/username_check/cubit/username_cubit.dart</url>
+          <line>41</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/username_check/cubit/username_cubit.dart</url>
+          <line>35</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/username_check/cubit/username_cubit.dart</url>
+          <line>44</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/username_check/cubit/username_cubit.dart</url>
+          <line>45</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/add_games/screen/add_games_screen.dart</url>
+          <line>115</line>
+          <option name="timeStamp" value="140" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/add_games/screen/add_games_screen.dart</url>
+          <line>99</line>
+          <option name="timeStamp" value="142" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/add_games/bloc/add_game_bloc.dart</url>
+          <line>121</line>
+          <option name="timeStamp" value="145" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/add_games/bloc/add_game_bloc.dart</url>
+          <line>157</line>
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/add_games/bloc/add_game_bloc.dart</url>
+          <line>160</line>
+          <option name="timeStamp" value="149" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint suspend="THREAD" type="dart-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

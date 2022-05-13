@@ -34,7 +34,17 @@ class UsernameCheck extends StatelessWidget {
           previous.usernameStatus != current.usernameStatus,
       listener: (context, state) {
         if (state.usernameStatus.isRegistered) {
+          context.read<UsernameCubit>().usernameStored();
           GoRouter.of(context).go("/home");
+        }
+        if (state.usernameStatus.isInvalid) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage ?? 'Username not available'),
+              ),
+            );
         }
       },
       buildWhen: (previous, current) =>
@@ -45,19 +55,28 @@ class UsernameCheck extends StatelessWidget {
           return const Center(
               child: CircularProgressIndicator()
           );
-        } else if (state.usernameStatus.isUnregistered) {
+        } else if (state.usernameStatus.isAvailable) {
+          context.read<UsernameCubit>().registerUsername();
+          return const Center(
+              child: CircularProgressIndicator()
+          );
+        } else if (state.usernameStatus.isUnregistered || state.usernameStatus.isInvalid){
           return Align(
             alignment: const Alignment(0, -1 / 3),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UsernameInput(),
+                const UsernameInput(),
+                const SizedBox(height: 24,),
+                _ConfirmUsernameButton(),
               ],
             ),
           );
         } else {
-          return Container();
+          return const Center(
+              child: CircularProgressIndicator()
+          );
         }
       },
     );
@@ -92,6 +111,37 @@ class UsernameInput extends StatelessWidget {
               errorText:
                   state.username.invalid ? 'at least 4 characters' : null,
             ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+
+class _ConfirmUsernameButton extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    const color = Color(0xFF40916c);
+    final width = MediaQuery.of(context).size.width;
+    return BlocBuilder<UsernameCubit, UsernameState>(
+      buildWhen: (previous, current) => previous.validationStatus != current.validationStatus,
+      builder: (context, state) {
+        return ElevatedButton(
+          key: const Key('usernameForm_confirm_raisedButton'),
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30)),
+            primary: color,
+            minimumSize: Size(0.8*width, 45),
+          ),
+          onPressed: state.username.valid
+              ? () => context.read<UsernameCubit>().usernameAvailable(state.username.value)
+              : null,
+          child: const Text(
+            'CONFIRM',
+            textScaleFactor: 1.3,
           ),
         );
       },

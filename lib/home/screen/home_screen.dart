@@ -138,7 +138,7 @@ class FirestoreUser extends StatelessWidget {
           shrinkWrap: true,
           itemCount: data.size,
           itemBuilder: (context, index) {
-            return Text('My name is ${data.docs[index]['name']}, my email is ${data.docs[index]['email']}');
+            return Text('My name is ${data.docs[index]['username']}, my email is ${data.docs[index]['email']}');
           },
 
         );
