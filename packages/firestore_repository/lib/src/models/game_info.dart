@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:firestore_repository/firestore_repository.dart';
 
 enum GameType {
   three,

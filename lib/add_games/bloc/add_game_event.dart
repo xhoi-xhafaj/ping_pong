@@ -53,3 +53,7 @@ class AddPlayerTwoSetPoint extends AddGameEvent {}
 class RemovePlayerOneSetPoint extends AddGameEvent {}
 
 class RemovePlayerTwoSetPoint extends AddGameEvent {}
+
+class AddSet extends AddGameEvent {}
+
+class CancelGame extends AddGameEvent {}

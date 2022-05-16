@@ -8,3 +8,5 @@ export 'player_two_text.dart';
 export 'player_one_score.dart';
 export 'player_two_score.dart';
 export 'add_set_widgets/add_set_widgets.dart';
+export 'cancel_app_bar_button.dart';
+export 'game_type_text.dart';

@@ -53,6 +53,19 @@ class FirestoreRepository {
     return available;
   }
 
+  Future<bool> deleteGameDocument(String uid) async {
+    bool deleted = false;
+    var gameReference = _firebaseFirestore.collection('matches').doc(uid);
+
+    await gameReference.delete().then(
+          (value) {
+            deleted = true;
+            print(deleted);
+    },
+    );
+    return deleted;
+  }
+
 
   void registerUsername(String uid, String username, String email) {
     var usersReference = _firebaseFirestore.collection('users');
@@ -91,7 +104,7 @@ class FirestoreRepository {
   }
 
   Future<String> initializeNewGame(GameInfo gameInfo) async {
-    var usersReference = _firebaseFirestore.collection('matches');
+    var gameReference = _firebaseFirestore.collection('matches');
     final game = <String, dynamic> {
       "player_one": gameInfo.playerOne,
       "player_two": gameInfo.playerTwo,
@@ -100,14 +113,45 @@ class FirestoreRepository {
       "game_status": gameInfo.gameStatus.name,
       "win_set_player_one": gameInfo.winSetPlayerOne,
       "win_set_player_two": gameInfo.winSetPlayerTwo,
+      "scores" : [],
     };
     var id = "";
     try {
-      await usersReference.add(game)
+      await gameReference.add(game)
           .then((value) => id = value.id);
       return id;
     } catch (e) {
       throw(e);
+    }
+  }
+
+  void addSetToMatch(
+      String docId,
+      SetScore score,
+      int playerOneScore,
+      int playerTwoScore,
+      String status,
+      String winner,
+      ) async {
+    try {
+      await _firebaseFirestore.collection('matches').doc(docId).update(
+        {
+          "win_set_player_one" : playerOneScore,
+          "win_set_player_two" : playerTwoScore,
+          "game_status" : status,
+          "winner" : winner
+        },
+      );
+      await _firebaseFirestore.collection('matches').doc(docId).update(
+        {
+          "scores.${score.set}" : {
+            "${score.playerOne}": score.setScorePlayerOne,
+            "${score.playerTwo}": score.setScorePlayerTwo,
+          }
+        },
+      );
+    } catch (e) {
+      rethrow;
     }
   }
 

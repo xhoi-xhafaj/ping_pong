@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ping_pong/add_games/add_games.dart';
 
 class PlayerOneScore extends StatelessWidget {
@@ -13,8 +14,8 @@ class PlayerOneScore extends StatelessWidget {
       builder: (context, state) {
         return Text(
           state.winSetPlayerOne.toString(),
-          style: const TextStyle(
-            fontSize: 35,
+          style: GoogleFonts.comfortaa(
+            fontSize: 38,
           ),
         );
       },

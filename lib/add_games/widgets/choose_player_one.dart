@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../constants.dart';
 import '../add_games.dart';
 
 class ChoosePlayerOne extends StatelessWidget {
@@ -22,7 +24,7 @@ class ChoosePlayerOne extends StatelessWidget {
           items: list.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem(
               value: value,
-              child: Text(value),
+              child: Center(child: Text(value)),
             );
           }).toList(),
           onChanged: (String? newValue) {
@@ -30,6 +32,15 @@ class ChoosePlayerOne extends StatelessWidget {
               context.read<AddGameBloc>().add(ChangePlayerOne(newValue));
             }
           },
+          style: GoogleFonts.comfortaa(
+            color: Colors.black,
+            fontSize: 22,
+          ),
+          dropdownColor: choosePlayersCardBackground,
+          elevation: 3,
+          borderRadius: BorderRadius.circular(20),
+          isExpanded: true,
+          underline: const SizedBox(),
         );
       },
     );

@@ -6,3 +6,4 @@ export 'player_one_add_score_button.dart';
 export 'player_one_subtract_score_button.dart';
 export 'player_two_subtract_score_button.dart';
 export 'add_set_button.dart';
+export 'playing_text.dart';

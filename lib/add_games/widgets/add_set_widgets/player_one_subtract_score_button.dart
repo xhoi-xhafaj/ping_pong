@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ping_pong/add_games/add_games.dart';
+import 'package:ping_pong/constants.dart';
 
 class PlayerOneSubtractScoreButton extends StatelessWidget {
   const PlayerOneSubtractScoreButton({Key? key}) : super(key: key);
@@ -11,10 +12,11 @@ class PlayerOneSubtractScoreButton extends StatelessWidget {
       width: 40.0,
       child: FloatingActionButton(
         child: const Icon(Icons.remove, color: Colors.black87),
-        backgroundColor: Colors.white,
+        backgroundColor: removePointButtonColor,
         onPressed: () {
           context.read<AddGameBloc>().add(RemovePlayerOneSetPoint());
         },
+        elevation: 0,
       ),
     );
   }

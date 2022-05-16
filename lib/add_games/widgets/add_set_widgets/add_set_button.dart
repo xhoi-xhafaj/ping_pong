@@ -20,7 +20,7 @@ class AddSetButton extends StatelessWidget {
               minimumSize: Size(0.5 * width, 35),
             ),
             onPressed: state.currentSet.addButtonEnabled
-                ? () {context.read<AddGameBloc>(); }
+                ? () { context.read<AddGameBloc>().add(AddSet()); }
                 : null,
             child: const Text(
               'ADD SET',

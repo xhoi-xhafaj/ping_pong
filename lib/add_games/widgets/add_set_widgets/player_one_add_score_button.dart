@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ping_pong/add_games/add_games.dart';
+import 'package:ping_pong/constants.dart';
 
 class PlayerOneAddScoreButton extends StatelessWidget {
   const PlayerOneAddScoreButton({Key? key}) : super(key: key);
@@ -14,10 +15,11 @@ class PlayerOneAddScoreButton extends StatelessWidget {
           Icons.add,
           color: Colors.black87,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: addPointButtonColor,
         onPressed: () {
           context.read<AddGameBloc>().add(AddPlayerOneSetPoint());
         },
+        elevation: 0,
       ),
     );
   }

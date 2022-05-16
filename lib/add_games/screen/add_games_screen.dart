@@ -1,8 +1,12 @@
+
+
 import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ping_pong/add_games/add_games.dart';
-import 'package:ping_pong/add_games/widgets/add_set_widgets/add_set_button.dart';
+import 'package:ping_pong/add_games/screen/choose_players_body.dart';
+import 'package:ping_pong/constants.dart';
 
 class AddGamesScreen extends StatelessWidget {
   const AddGamesScreen({Key? key}) : super(key: key);
@@ -10,177 +14,72 @@ class AddGamesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return BlocProvider(
-      create: (BuildContext context) => AddGameBloc(
-        firestoreRepository:
-            RepositoryProvider.of<FirestoreRepository>(context),
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: choosePlayersContainerBackgroundColor,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      child: Scaffold(
-        body: BlocConsumer<AddGameBloc, AddGameState>(
-          listenWhen: (previous, current) =>
-              previous.gameStatus != current.gameStatus,
-          listener: (context, state) {},
-          buildWhen: (previous, current) =>
-              previous.gameStatus != current.gameStatus,
-          builder: (context, state) {
-            context.read<AddGameBloc>().add(GetListOfOpponents());
-            if (state.gameStatus.isInitialized) {
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    const Text(
-                      'Choose the players',
-                      style: TextStyle(fontSize: 35),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        UserNameAvatarPlayerOne(),
-                        Center(
-                          child: Text(
-                            'VS',
-                            style: TextStyle(fontSize: 30),
+      home: BlocProvider(
+        create: (BuildContext context) => AddGameBloc(
+          firestoreRepository:
+              RepositoryProvider.of<FirestoreRepository>(context),
+        ),
+        child: Scaffold(
+          appBar: buildAppBar(),
+          body: BlocConsumer<AddGameBloc, AddGameState>(
+            listenWhen: (previous, current) =>
+                previous.gameStatus != current.gameStatus,
+            listener: (context, state) {
+              if (state.gameStatus.isCanceled) {
+                GoRouter.of(context).go('/home');
+              }
+            },
+            buildWhen: (previous, current) =>
+                previous.gameStatus != current.gameStatus,
+            builder: (context, state) {
+              context.read<AddGameBloc>().add(GetListOfOpponents());
+              if (state.gameStatus.isInitialized) {
+                return const ChoosePlayersBody();
+              } else  if (state.gameStatus.isStarted) {
+                return const GameStartedBody();
+                /*return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const [
+                          UserNamePlayerOne(),
+                          Center(
+                            child: Text(
+                              'VS',
+                              style: TextStyle(fontSize: 30),
+                            ),
                           ),
-                        ),
-                        UserNameAvatarPlayerTwo()
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    const Text(
-                      """Let's play""",
-                      style: TextStyle(fontSize: 35),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          'best of',
-                          style: TextStyle(fontSize: 35),
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        ChooseTypeOfGame(),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const ConfirmPlayersButton(),
-                  ],
-                ),
-              );
-            } else  if (state.gameStatus.isStarted) {
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        UserNamePlayerOne(),
-                        Center(
-                          child: Text(
-                            'VS',
-                            style: TextStyle(fontSize: 30),
-                          ),
-                        ),
-                        UserNamePlayerTwo(),
-                      ],
-                    ),
-                    const AddSetWidget(),
-                  ],
-                ),
-              );
-            }
-            else {
-              return Container();
-            }
-          },
+                          UserNamePlayerTwo(),
+                        ],
+                      ),
+                      const AddSetWidget(),
+                    ],
+                  ),
+                );*/
+              }
+              else {
+                return Container();
+              }
+            },
+          ),
         ),
       ),
     );
   }
 }
 
-class UserNameAvatarPlayerOne extends StatelessWidget {
-  const UserNameAvatarPlayerOne({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: const [Avatar(), ChoosePlayerOne()],
-    );
-  }
-}
-
-class UserNameAvatarPlayerTwo extends StatelessWidget {
-  const UserNameAvatarPlayerTwo({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: const [
-        Avatar(),
-        ChoosePlayerTwo(),
-      ],
-    );
-  }
-}
-
-class UserNamePlayerOne extends StatelessWidget {
-  const UserNamePlayerOne({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-   return Column(
-     mainAxisSize: MainAxisSize.min,
-     children: const [
-       Avatar(),
-       PlayerOneText(),
-       PlayerOneScore(),
-     ],
-   );
-  }
-}
-
-class UserNamePlayerTwo extends StatelessWidget {
-  const UserNamePlayerTwo({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: const [
-        Avatar(),
-        PlayerTwoText(),
-        PlayerTwoScore(),
-      ],
-    );
-  }
-}
 
 class AddSetWidget extends StatelessWidget {
   const AddSetWidget({Key? key}) : super(key: key);
@@ -280,5 +179,13 @@ class PlayerTwoSetPoint extends StatelessWidget {
       ),
     );
   }
+}
+
+AppBar buildAppBar() {
+  return AppBar(
+    backgroundColor: choosePlayersContainerBackgroundColor,
+    elevation: 0,
+    leading: const CancelAppBarButton(),
+  );
 }
 
