@@ -11,6 +11,7 @@ class AddGameState extends Equatable {
   final List<String> players;
   final String documentId;
   final Set currentSet;
+  final List<Set> savedSets;
 
   const AddGameState({
     this.playerOne = '',
@@ -23,6 +24,7 @@ class AddGameState extends Equatable {
     this.players = const <String>[],
     this.documentId = '',
     this.currentSet = const Set(),
+    this.savedSets = const <Set>[]
   });
 
   AddGameState copyWith({
@@ -36,6 +38,7 @@ class AddGameState extends Equatable {
     List<String>? players,
     String? documentId,
     Set? currentSet,
+    List<Set>? savedSets,
   }) {
     return AddGameState(
       playerOne: playerOne ?? this.playerOne,
@@ -48,6 +51,7 @@ class AddGameState extends Equatable {
       players: players ?? this.players,
       documentId: documentId ?? this.documentId,
       currentSet: currentSet ?? this.currentSet,
+      savedSets: savedSets ?? this.savedSets,
     );
   }
 
@@ -63,6 +67,7 @@ class AddGameState extends Equatable {
         players,
         documentId,
         currentSet,
+        savedSets,
       ];
 }
 

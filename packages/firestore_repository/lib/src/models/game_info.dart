@@ -11,6 +11,7 @@ enum GameStatus {
   started,
   finished,
   canceled,
+  saved,
 }
 
 class GameInfo extends Equatable {

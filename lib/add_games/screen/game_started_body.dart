@@ -13,7 +13,7 @@ class GameStartedBody extends StatelessWidget {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: size.height * 0.28,
+          height: size.height * 0.3,
           child: Stack(
             children: [
               Container(
@@ -24,7 +24,7 @@ class GameStartedBody extends StatelessWidget {
                 ),
               ),
               Container(
-                height:  size.height * 0.28 - 95,
+                height:  size.height * 0.3 - 95,
                 decoration: const BoxDecoration(
                   color: choosePlayersContainerBackgroundColor,
                   borderRadius: BorderRadius.only(
@@ -165,7 +165,6 @@ class AddSetPoint extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.3,
       margin: const EdgeInsets.symmetric(horizontal: 30,),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -173,9 +172,11 @@ class AddSetPoint extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
+        children: const [
           TextOfSet(),
           PlayerOneNameAndScore(),
+          PlayerTwoNameAndScore(),
+          AddSetButton(),
         ],
       ),
     );
@@ -189,13 +190,13 @@ class PlayerOneNameAndScore extends StatelessWidget {
   Widget build(BuildContext context) {
    var size = MediaQuery.of(context).size;
    return Container(
-     margin: const EdgeInsets.all(10),
+     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
      child: Row(
-       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+       mainAxisAlignment: MainAxisAlignment.spaceBetween,
        children: [
          const PlayerOneText(),
          SizedBox(
-           width: 0.3 * size.width,
+           width: 0.35 * size.width,
            child: Row(
              mainAxisAlignment: MainAxisAlignment.spaceBetween,
              children: const [
@@ -218,19 +219,19 @@ class PlayerTwoNameAndScore extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const PlayerTwoText(),
           SizedBox(
-            width: 0.3 * size.width,
+            width: 0.35 * size.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                PlayerOneSubtractScoreButton(),
-                PlayerOneScoreSet(),
-                PlayerOneAddScoreButton(),
+                PlayerTwoSubtractScoreButton(),
+                PlayerTwoScoreSet(),
+                PlayerTwoAddScoreButton(),
               ],
             ),
           ),

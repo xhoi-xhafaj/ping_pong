@@ -10,3 +10,4 @@ export 'player_two_score.dart';
 export 'add_set_widgets/add_set_widgets.dart';
 export 'cancel_app_bar_button.dart';
 export 'game_type_text.dart';
+export 'game_stats_text.dart';

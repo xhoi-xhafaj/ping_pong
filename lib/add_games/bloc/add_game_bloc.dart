@@ -25,6 +25,7 @@ class AddGameBloc extends Bloc<AddGameEvent, AddGameState> {
     on<RemovePlayerTwoSetPoint>(_removePlayerTwoSetPoint);
     on<AddSet>(_onAddSet);
     on<CancelGame>(_onCancelGame);
+    on<SaveGame>(_onSaveGame);
   }
 
   final FirestoreRepository _firestoreRepository;
@@ -91,44 +92,31 @@ class AddGameBloc extends Bloc<AddGameEvent, AddGameState> {
     if (checkIfSetFinished(futureScorePlayerOne, futureScorePlayerTwo)) {
       if (state.currentSet.addButtonEnabled) {
         if (futureScorePlayerTwo >= futureScorePlayerOne + 2) {
-          emitter(
-              state.copyWith(
-                  currentSet: state.currentSet.copyWith(
-                    playerOneScore: futureScorePlayerOne,
-                    addButtonEnabled: true,
-                  )
-              )
-          );
+          emitter(state.copyWith(
+              currentSet: state.currentSet.copyWith(
+            playerOneScore: futureScorePlayerOne,
+            addButtonEnabled: true,
+          )));
         } else {
-          emitter(
-              state.copyWith(
-                  currentSet: state.currentSet.copyWith(
-                    addButtonEnabled: true,
-                  )
-              )
-          );
+          emitter(state.copyWith(
+              currentSet: state.currentSet.copyWith(
+            addButtonEnabled: true,
+          )));
         }
       } else {
-        emitter(
-            state.copyWith(
-                currentSet: state.currentSet.copyWith(
-                  playerOneScore: futureScorePlayerOne,
-                  addButtonEnabled: true,
-                )
-            )
-        );
+        emitter(state.copyWith(
+            currentSet: state.currentSet.copyWith(
+          playerOneScore: futureScorePlayerOne,
+          addButtonEnabled: true,
+        )));
       }
     } else {
-      emitter(
-          state.copyWith(
-              currentSet: state.currentSet.copyWith(
-                playerOneScore: futureScorePlayerOne,
-                addButtonEnabled: false,
-              )
-          )
-      );
+      emitter(state.copyWith(
+          currentSet: state.currentSet.copyWith(
+        playerOneScore: futureScorePlayerOne,
+        addButtonEnabled: false,
+      )));
     }
-
   }
 
   void _addPlayerTwoSetPoint(
@@ -139,42 +127,30 @@ class AddGameBloc extends Bloc<AddGameEvent, AddGameState> {
     if (checkIfSetFinished(futureScorePlayerOne, futureScorePlayerTwo)) {
       if (state.currentSet.addButtonEnabled) {
         if (futureScorePlayerOne >= futureScorePlayerTwo + 2) {
-          emitter(
-              state.copyWith(
-                  currentSet: state.currentSet.copyWith(
-                    playerTwoScore: futureScorePlayerTwo,
-                    addButtonEnabled: true,
-                  )
-              )
-          );
+          emitter(state.copyWith(
+              currentSet: state.currentSet.copyWith(
+            playerTwoScore: futureScorePlayerTwo,
+            addButtonEnabled: true,
+          )));
         } else {
-          emitter(
-              state.copyWith(
-                  currentSet: state.currentSet.copyWith(
-                    addButtonEnabled: true,
-                  )
-              )
-          );
+          emitter(state.copyWith(
+              currentSet: state.currentSet.copyWith(
+            addButtonEnabled: true,
+          )));
         }
       } else {
-        emitter(
-            state.copyWith(
-                currentSet: state.currentSet.copyWith(
-                  playerTwoScore: futureScorePlayerTwo,
-                  addButtonEnabled: true,
-                )
-            )
-        );
+        emitter(state.copyWith(
+            currentSet: state.currentSet.copyWith(
+          playerTwoScore: futureScorePlayerTwo,
+          addButtonEnabled: true,
+        )));
       }
     } else {
-        emitter(
-            state.copyWith(
-                currentSet: state.currentSet.copyWith(
-                  playerTwoScore: futureScorePlayerTwo,
-                  addButtonEnabled: false,
-                )
-            )
-        );
+      emitter(state.copyWith(
+          currentSet: state.currentSet.copyWith(
+        playerTwoScore: futureScorePlayerTwo,
+        addButtonEnabled: false,
+      )));
     }
   }
 
@@ -186,24 +162,18 @@ class AddGameBloc extends Bloc<AddGameEvent, AddGameState> {
     if (state.currentSet.playerOneScore != 0) {
       if (checkIfSetFinished(futureScorePlayerOne, futureScorePlayerTwo)) {
         if (futureScorePlayerOne + 3 > futureScorePlayerTwo) {
-          emitter(
-              state.copyWith(
-                  currentSet: state.currentSet.copyWith(
-                    playerOneScore: futureScorePlayerOne,
-                    addButtonEnabled: true,
-                  )
-              )
-          );
+          emitter(state.copyWith(
+              currentSet: state.currentSet.copyWith(
+            playerOneScore: futureScorePlayerOne,
+            addButtonEnabled: true,
+          )));
         }
       } else {
-        emitter(
-            state.copyWith(
-                currentSet: state.currentSet.copyWith(
-                  playerOneScore: futureScorePlayerOne,
-                  addButtonEnabled: false,
-                )
-            )
-        );
+        emitter(state.copyWith(
+            currentSet: state.currentSet.copyWith(
+          playerOneScore: futureScorePlayerOne,
+          addButtonEnabled: false,
+        )));
       }
     }
   }
@@ -216,29 +186,24 @@ class AddGameBloc extends Bloc<AddGameEvent, AddGameState> {
     if (state.currentSet.playerTwoScore != 0) {
       if (checkIfSetFinished(futureScorePlayerOne, futureScorePlayerTwo)) {
         if (futureScorePlayerTwo + 3 > futureScorePlayerOne) {
-          emitter(
-              state.copyWith(
-                  currentSet: state.currentSet.copyWith(
-                    playerTwoScore: futureScorePlayerTwo,
-                    addButtonEnabled: true,
-                  )
-              )
-          );
+          emitter(state.copyWith(
+              currentSet: state.currentSet.copyWith(
+            playerTwoScore: futureScorePlayerTwo,
+            addButtonEnabled: true,
+          )));
         }
       } else {
-        emitter(
-            state.copyWith(
-              currentSet: state.currentSet.copyWith(
-                playerTwoScore: futureScorePlayerTwo,
-                addButtonEnabled: false,
-              ),
-            )
-        );
+        emitter(state.copyWith(
+          currentSet: state.currentSet.copyWith(
+            playerTwoScore: futureScorePlayerTwo,
+            addButtonEnabled: false,
+          ),
+        ));
       }
     }
   }
 
-  void _onAddSet(AddSet event, Emitter<AddGameState> emitter) {
+  void _onAddSet(AddSet event, Emitter<AddGameState> emitter) async {
     int playerOneScore = state.winSetPlayerOne;
     int playerTwoScore = state.winSetPlayerTwo;
     bool hasFinished = false;
@@ -267,43 +232,49 @@ class AddGameBloc extends Bloc<AddGameEvent, AddGameState> {
 
     try {
       _firestoreRepository.addSetToMatch(
-        state.documentId,
-        SetScore(
-          set: "set_" + state.currentSet.set.toString(),
-          playerOne: state.playerOne,
-          playerTwo: state.playerTwo,
-          setScorePlayerOne: state.currentSet.playerOneScore,
-          setScorePlayerTwo: state.currentSet.playerTwoScore,
-        ),
-        playerOneScore,
-        playerTwoScore,
-        status.name,
-        winner
-      );
-      emitter(
-        state.copyWith(
-          currentSet: state.currentSet.copyWith(
-            set: hasFinished ? 0 : state.currentSet.set + 1,
-            playerOneScore: 0,
-            playerTwoScore: 0,
-            addButtonEnabled: false,
+          state.documentId,
+          SetScore(
+            set: "set_" + state.currentSet.set.toString(),
+            playerOne: state.playerOne,
+            playerTwo: state.playerTwo,
+            setScorePlayerOne: state.currentSet.playerOneScore,
+            setScorePlayerTwo: state.currentSet.playerTwoScore,
           ),
-          winSetPlayerOne: playerOneScore,
-          winSetPlayerTwo: playerTwoScore,
-          winner: winner,
-          gameStatus: status,
-        )
-      );
+          playerOneScore,
+          playerTwoScore,
+          status.name,
+          winner);
+      emitter(state.copyWith(
+        currentSet: state.currentSet.copyWith(
+          set: hasFinished ? 0 : state.currentSet.set + 1,
+          playerOneScore: 0,
+          playerTwoScore: 0,
+          addButtonEnabled: false,
+        ),
+        winSetPlayerOne: playerOneScore,
+        winSetPlayerTwo: playerTwoScore,
+        winner: winner,
+        gameStatus: status,
+        savedSets: List.of(state.savedSets)..add(state.currentSet),
+      ));
     } catch (e) {
       rethrow;
     }
+  }
+
+  void _onSaveGame(SaveGame event, Emitter<AddGameState> emitter) {
+    emitter(state.copyWith(
+      gameStatus: GameStatus.saved,
+    ));
+
   }
 
   void _onCancelGame(CancelGame event, Emitter<AddGameState> emitter) async {
     if (state.documentId.isEmpty) {
       emitter(state.copyWith(gameStatus: GameStatus.canceled));
     } else {
-      bool deleted = await _firestoreRepository.deleteGameDocument(state.documentId);
+      bool deleted =
+          await _firestoreRepository.deleteGameDocument(state.documentId);
       print(deleted);
       if (deleted == true) {
         emitter(state.copyWith(gameStatus: GameStatus.canceled));
@@ -330,11 +301,13 @@ extension GameStatusX on GameStatus {
   bool get isCanceled => this == GameStatus.canceled;
 
   bool get isFinished => this == GameStatus.finished;
+
+  bool get isSaved => this == GameStatus.saved;
 }
 
 extension GameTypeX on GameType {
   int get toNeededSetToWin {
-    switch(this) {
+    switch (this) {
       case GameType.three:
         return 2;
       case GameType.five:

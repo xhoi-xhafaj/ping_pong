@@ -18,3 +18,6 @@ const double letsPlayTextSize = 35.0;
 const String choosePlayersText = "Choose Players";
 const String letsPlay = """Let's Play""";
 const String playingText = "Playing ...";
+const String gameStatsText = "Game Stats";
+const String addSetButtonText = "Save Set";
+const String saveGameButtonSet = "Save Game";
